@@ -1,0 +1,232 @@
+﻿@model ChavePixViewModel
+
+@{
+    ViewData["Title"] = "Conta cliente";
+}
+
+@section Scripts{
+    <script src="~/js/ChavePixAleatoria.js"></script>
+}
+
+<link rel="stylesheet" href="~/css/conta.css" />
+<div class="container_saldo">
+
+    <label name="saldo" class="form-label">Saldo atual: R$ @TempData["Saldo"]</label>
+    <br />
+    <div class="container_badgeConta">
+        <label> @TempData["TipoCliente"]</label>
+        <br />
+        <button type="button" class="btn btn_conta btn-info" data-bs-toggle="modal" data-bs-target="#Extrato">
+            Extrato
+        </button>
+    </div>
+
+</div>
+
+    <mensagem texto="@TempData["SaldoInsuficiente"]" class="alert alert-danger"></mensagem>
+    <mensagem texto="@TempData["Deposito"]"></mensagem>
+    <mensagem texto="@TempData["Transferencia"]"></mensagem>
+    <mensagem texto="@TempData["Erro"]" class="alert alert-danger"></mensagem>
+    <mensagem texto="@TempData["msgErro"]" class="alert alert-danger"></mensagem>
+    <mensagem texto="@TempData["msgErroTrans"]" class="alert alert-danger"></mensagem>
+    <mensagem texto="@TempData["msgErroChave"]" class="alert alert-danger"></mensagem>
+    <mensagem texto="@TempData["ChaveCadastrada"]"></mensagem>
+    <mensagem texto="@TempData["ChaveExistente"]" class="alert alert-danger"></mensagem>
+
+    <div class="container_flex">
+
+        <div class="form FormTransferir">
+
+            <form asp-action="Transferir">
+                @*ChavePix.Chave*@
+                <h2>Transferir</h2>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label name="chavePix" class="form-label">Chave de Destino</label>
+                        <input type="text" name="chavePix" class="form-control" />
+                        <span asp-validation-for="ChavePix" class="text-danger"></span>
+                    </div>
+
+                    <div class="col">
+                        <label name="valor" class="form-label">Valor Transferência</label>
+                        <input type="number" name="valor" class="form-control" />
+                    </div>
+
+                    @*/////Lucas/////*@
+                    <div class="col">
+                         <label name="ChavePix" class="form-label">Chave Pix</label>
+                        <select name="ChavePixTipo" asp-items="@Html.GetEnumSelectList<TipoChavePix>()" class="form-control">
+                            <option>Selecione o tipo de chave</option>
+                        </select>
+                    </div>
+                     @*/////Lucas/////*@
+
+                </div>
+                <input type="submit" class="btn btn-success" value="Enviar" />
+            </form>
+
+        </div>
+
+        <div class="form FormDepositar">
+            <form asp-action="Depositar">
+                <h2>Depositar</h2>
+                <div class="row mb-3">
+
+                    <div class="col">
+                        <label name="valorDeposito" class="form-label">Valor de depósito</label>
+                        <input type="number" name="valorDeposito" class="form-control" />
+
+                    </div>
+
+                </div>
+
+                <input type="submit" class="btn btn-success" value="Enviar" />
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <table class="table form">
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Chave</th>
+                <th>Conta</th>
+                <th>Ações</th>
+            </tr>
+
+            @foreach (ChavePix chavePix in Model.ListaPix)
+        {
+            <tr>
+                <td>@chavePix.ChavePixId</td>
+                <td>@chavePix.Tipo</td>
+                <td>@chavePix.Chave</td>
+
+                <td>@TempData["NumeroConta"]</td>
+
+                <td>
+                    <!-- Button trigger modal -->
+                    <button onclick="chavePixId.value = @chavePix.ChavePixId" type="button"
+                        class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalRemove">
+                        Remover
+                    </button>
+                </td>
+
+            </tr>
+        }
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalRemove" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente remover esta Chave?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <form asp-action="RemoverChave">
+                        <input type="hidden" id="chavePixId" name="id" />
+                        <input type="submit" value="Remover" class="btn btn-danger" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="FormPIX">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Cadastrar PIX
+        </button>
+    </div>
+
+
+    @*Inicio modal*@
+    <div class="modal" tabindex="-1" id="exampleModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cadastro PIX</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                @*Formulário no modal*@
+                <div class="modal-body">
+                    <div class="FormPIX">
+
+                        <form asp-action="CadastrarChave">
+
+                            <div class="row">
+                                <div class="col">
+                                    <label asp-for="ChavePix.Tipo" class="form-label"></label>
+                                    <select asp-for="ChavePix.Tipo" id="tipoChave" class="form-control " asp-items="@Html.GetEnumSelectList<TipoChavePix>()">
+                                        <option>Selecione</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row" id="campoChave">
+                                <div class="col">
+                                    <label asp-for="ChavePix.Chave" class="form-label"></label>
+                                    <input asp-for="ChavePix.Chave" class="form-control"/>
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--  Modal Extrato  -->
+<div class="modal fade" id="Extrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Extrato bancário</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Transacao transacao in Model.Transacoes)
+                        {
+                            <tr>
+                                <td>@transacao.Tipo</td>
+                                <td>@transacao.DataTransacao</td>
+                                <td style="@(transacao.Tipo == TipoTransacao.Deposito ? "color: blue" : "color: red")">@transacao.Valor.ToString("N")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+

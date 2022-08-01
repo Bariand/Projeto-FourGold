@@ -1,0 +1,47 @@
+
+:root {
+    --img-bgLogin: src();
+    --fs-Primary-color: #1C1C38;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin-bottom: 60px;
+}
+
+footer {
+    margin-top: auto;
+    background-color: var(--fs-Primary-color);
+    height: 40px;
+    text-align: center;
+}
+
+.bgFour {
+    background-color: var(--fs-Primary-color);
+}
+
+.bgImgFour {
+    width: 60px;
+    margin-right: 10px;
+}
+
+
+

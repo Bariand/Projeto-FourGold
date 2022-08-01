@@ -1,0 +1,112 @@
+﻿@page
+@using Projeto_FourGold.Areas.Identity.Pages.Account
+@using Projeto_FourGold.Areas.Identity.Data
+@using Projeto_FourGold.Models
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+@section LinkCss
+{
+<link rel="stylesheet" href="~/css/loginECadastro.css" />
+}
+
+<h1>@ViewData["Cadastro"]</h1>
+
+<div>
+    <div class="col-md-4">
+        <form id="registerForm" class="formLC2" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2 class="titulo_Cadastrar">Crie sua nova <p class="titulo2_Cadastrar"> conta</p></h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="container_flex">
+                <div class="col mb-3">
+                    <label asp-for="Input.Nome"></label>
+                    <input asp-for="Input.Nome" class="form-control" autocomplete="username" aria-required="true" />
+
+                    <span asp-validation-for="Input.Nome" class="text-danger"></span>
+                </div>
+
+                <div class="col mb-3">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="container_flex">
+                <div class="col mb-3">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="col mb-3">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="container_flex">
+                <div class="col mb-3">
+                    <label asp-for="Input.Cpf"></label>
+                    <input asp-for="Input.Cpf" class="form-control" autocomplete="username" aria-required="true" />
+
+                    <span asp-validation-for="Input.Cpf" class="text-danger"></span>
+                </div>
+
+                <div class="col mb-3">
+                    <label asp-for="Input.Tipo"></label>
+                    <select asp-for="Input.Tipo" class="form-control" asp-items="@Html.GetEnumSelectList<TipoConta>()" aria-required="true">
+                        <option>Selecionar</option>
+                    </select>
+
+                    <span asp-validation-for="Input.Tipo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="btn btn-success btnEntrar">Cadastrar</button>
+            <p>Já possui conta? <a asp-action="Login">Faça login</a></p>
+        </form>
+    </div>
+    @*<div class="col-md-6 col-md-offset-2">
+        <section>
+        <h3>Use another service to register.</h3>
+        <hr />
+        @{
+        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+        {
+        <div>
+        <p>
+        There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+        about setting up this ASP.NET application to support logging in via external services</a>.
+        </p>
+        </div>
+        }
+        else
+        {
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        <div>
+        <p>
+        @foreach (var provider in Model.ExternalLogins)
+        {
+        }
+        </p>
+        </div>
+        </form>
+        }
+        }
+        </section>
+        </div> *@
+
+    @*<button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>*@
+
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

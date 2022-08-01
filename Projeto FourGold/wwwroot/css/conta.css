@@ -1,0 +1,62 @@
+﻿body {
+    background-image: url('../img/backgroundConta.jfif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form {
+    background-color: rgba(28, 28, 56, 0.50);
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+}
+
+.container_saldo {
+    background-color: rgba(28, 28, 56, 0.50);
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    width: 14em;
+    display: block;
+    justify-content: center;
+    margin-left: 82.7%;
+}
+
+.container_flex {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0 70px 0px;
+}
+
+.container_flex .row {
+    display: block;
+    width: 35em;
+}
+
+.table {
+    text-align: center;
+}
+
+.btn_conta {
+    color: #fff !important;
+    background-color: #1C1C38 !important;
+    border-color: #1C1C38 !important;
+}
+
+
+.container_saldo {
+    background-color: rgba(28, 28, 56, 0.50);
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    width: 14em;
+    display: block;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin-left: 82.7%;
+}
+
+.container_badgeConta {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,81 @@
+﻿
+
+body {
+    background-image: url('../img/image_login.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.formLC {
+    background-color: rgba(28, 28, 56, 0.80);
+    border-radius: 5px 50px;
+    padding: 40px;
+    color: white;
+    position: absolute;
+    margin-left: 60em;
+    /*margin-top: 6em;*/
+}
+
+.formLC2 {
+    background-color: rgba(28, 28, 56, 0.80);
+    border-radius: 5px 50px;
+    width: 40em;
+    padding: 40px;
+    color: white;
+    position: absolute;
+    margin-left: 45em;
+    margin-top: 4em;
+}
+
+.formLC2 .container_flex {
+    display: flex;
+    gap: 1em;
+}
+
+.saudacaoUsuario {
+    display: none;
+}
+
+.btnEntrar {
+    margin-bottom: 1em;
+    font-family: 'Abril Fatface';
+}
+
+.titulo {
+    display: flex;
+    position: absolute;
+    margin-left: 4em;
+    font-size: 150px;
+    font-family: 'Abril Fatface';
+    color: lightgrey;
+}
+
+.titulo2 {
+    background-color: rgba(28, 28, 56);
+    border-radius: 5px 50px;
+    margin: 10px;
+    color: chocolate;
+    padding: 10px;
+}
+
+.titulo_Cadastrar {
+    display: flex;
+    font-family: 'Abril Fatface';
+    color: lightgrey;
+}
+
+.titulo2_Cadastrar {
+    display: inline-block;
+    margin-left: 6px;
+    color: chocolate;
+}
+
+.titulo_Login {
+    display: flex;
+    font-family: 'Abril Fatface';
+    color: lightgrey;
+}
+
+.titulo2_Login {
+    color: chocolate;
+}
